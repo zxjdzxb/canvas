@@ -6,6 +6,7 @@ let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 let lineWidth = 8
 
+
 autoSetCanvasSize(canvas)
 listenToMouse(canvas)
 
@@ -108,12 +109,8 @@ function listenToMouse(canvas) {
 
     canvas.ontouchstart = function (a) { //touch开始
       console.log(a)
-      let
-
-        x = a.touches[0].clientX
-      let
-
-        y = a.touches[0].clientY
+      let x = a.touches[0].clientX
+      let y = a.touches[0].clientY
       usingMouse = true
       if (eraserEnable) {
         ctx.clearRect(x - 25, y - 25, 50, 50);
@@ -122,16 +119,10 @@ function listenToMouse(canvas) {
       }
     }
     canvas.ontouchmove = function (a) {  //touch移动
-      let
+      let x = a.touches[0].clientX
+      let y = a.touches[0].clientY
 
-        x = a.touches[0].clientX
-      let
-
-        y = a.touches[0].clientY
-      if (!usingMouse) {
-        return
-      }
-
+      drawLine(last[0], last[1], x, y)
       if (eraserEnable) {
         ctx.clearRect(x - 10, y - 10, 20, 20);
       } else {
@@ -152,7 +143,7 @@ function listenToMouse(canvas) {
         ctx.clearRect(x - 10, y - 10, 20, 20);
       } else {
         lastPoint = {'x': x, 'y': y}
-        // drawPoint(x,y,1)
+         drawPoint(x,y,1)
       }
     }
     canvas.onmousemove = function (a) {  //鼠标移动事件
@@ -163,6 +154,7 @@ function listenToMouse(canvas) {
       }
 
       if (eraserEnable) {
+
         ctx.clearRect(x - 10, y - 10, 20, 20);
       } else {
         let newPoint = {'x': x, 'y': y}
@@ -181,6 +173,7 @@ function drawPoint(x, y, radius) {
   ctx.beginPath()
   ctx.arc(x, y, radius, 0, Math.PI * 2)
   ctx.fill()
+  ctx.lineCap = "round";
 }
 
 function drawLine(x1, y1, x2, y2) {
@@ -190,6 +183,7 @@ function drawLine(x1, y1, x2, y2) {
   ctx.lineTo(x2, y2)
   ctx.stroke()
   ctx.closePath()
+  ctx.lineCap = "round";
 }
 
 function autoSetCanvasSize(canvas) { //全屏函数

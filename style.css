@@ -127,7 +127,7 @@ body{
   cursor:pointer;
 }
 #line li.active{
-  transform:scale(1.4);
+  transform:scale(2);
   padding: 4px 0;
 }
 

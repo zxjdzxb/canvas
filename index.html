@@ -1,95 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-Hans">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>画板</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js实现画板</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+  </style>
 </head>
-
 <body>
-    <canvas id="canvas" width="100" height="100"></canvas>
-    <script>
-        let canvas = document.getElementById("canvas");
-        canvas.width = document.documentElement.clientWidth
-        canvas.height = document.documentElement.clientHeight
-        let ctx = canvas.getContext("2d");
-        ctx.fillStyle = "black";
-        ctx.strokeStyle = 'black'
-        ctx.lineWidth = 8;
-        ctx.lineCap = "round";
+<!-- <button id="eraser">橡皮擦</button>
+<button id="brush">画笔</button> -->
+<canvas id="canvas" width="500" height="500"></canvas>
 
+<div id="actions" class="actions">
+  <svg id="brush" class="icon active" aria-hidden="true">
+    <use xlink:href="#icon-brush"></use>
+  </svg>
 
-        let painting = false
-        let last
+  <svg id="eraser"class="icon" aria-hidden="true">
+    <use xlink:href="#icon-eraser"></use>
+  </svg>
+  <svg id="clear"class="icon" aria-hidden="true">
+    <use xlink:href="#icon-clear"></use>
+  </svg>
+</div>
+<div class="download">
+  <svg id="download"class="icon" aria-hidden="true">
+    <use xlink:href="#icon-download"></use>
+  </svg>
+</div>
+<ol id="colors">
+  <li id="black" class="active"></li>
+  <li id="red"></li>
+  <li id="yellow"></li>
+  <li id="green"></li>
+  <li id="blue"></li>
+</ol>
+<ol id="line">
+  <li id="big" class="active"><span></span></li>
+  <li id="middle"><span></span></li>
+  <li id="small"><span></span></li>
+</ol>
 
-        let isTouchDevice = 'ontouchstart' in document.documentElement;
-        if (isTouchDevice) {
-            canvas.ontouchstart = (e) => {
-                let x = e.touches[0].clientX
-                let y = e.touches[0].clientY
-                last = [x, y]
-
-            }
-            canvas.ontouchmove = (e) => {
-                let x = e.touches[0].clientX
-                let y = e.touches[0].clientY
-                drawLine(last[0], last[1], x, y)
-                last = [x, y]
-            }
-        } else {
-            canvas.onmousedown = (e) => {
-                painting = true
-                last = [e.clientX, e.clientY]
-            }
-            canvas.onmousemove = (e) => {
-                if (painting === true) {
-                    drawLine(last[0], last[1], e.clientX, e.clientY)
-                    last = [e.clientX, e.clientY]
-                }
-            }
-            canvas.onmouseup = () => {
-                painting = false
-            }
-        }
-        function drawLine(x1, y1, x2, y2) {
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-        }
-
-
-
-
-
-
-
-
-
-        //             canvas.onmousemove = (e)=>{
-        //             console.log(e)
-        //             console.log(e.clientX)
-        //             console.log(e.clientY)
-        //             //console调试大法
-        //             let div = document.createElement('div')
-        //             div.style.position ='absolute'
-        //             div.style.left = e.clientX + 'px'
-        //             div.style.top = e.clientY + 'px'
-        //             //div.style.border ='1px solid red'
-        //             div.style.width = '6px'
-        //             div.style.height = '6px'
-        //             div.style.marginLeft = '-3px'
-        //             div.style.marginTop = '-3px'
-        //             div.style.borderRadius = '50%'
-        //             div.style.backgroundColor = 'black'
-        //             canvas.appendChild(div)
-
-        // }
-    </script>
+<script src="//at.alicdn.com/t/font_727030_snhj43zvcd9.js"></script>
+<script src="index.js"></script>
 </body>
 
 </html>

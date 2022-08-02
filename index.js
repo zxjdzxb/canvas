@@ -121,8 +121,7 @@ function listenToMouse(canvas) {
     canvas.ontouchmove = function (a) {  //touch移动
       let x = a.touches[0].clientX
       let y = a.touches[0].clientY
-
-      drawLine(last[0], last[1], x, y)
+      if(!usingMouse) return
       if (eraserEnable) {
         ctx.clearRect(x - 10, y - 10, 20, 20);
       } else {
@@ -149,10 +148,7 @@ function listenToMouse(canvas) {
     canvas.onmousemove = function (a) {  //鼠标移动事件
       let x = a.clientX
       let y = a.clientY
-      if (!usingMouse) {
-        return
-      }
-
+      if (!usingMouse) return
       if (eraserEnable) {
 
         ctx.clearRect(x - 10, y - 10, 20, 20);
